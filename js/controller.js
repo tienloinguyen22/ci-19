@@ -42,3 +42,24 @@ controller.validateRegisterForm = (registerInfo) => {
     view.setMessage('confirm-error-message', '');
   }
 };
+
+controller.validateLoginForm = (loginInfo) => {
+  const { email, password } = loginInfo;
+
+  // validate email
+  const emailRegex = /^[a-z][a-z0-9_\.]{5,32}@[a-z0-9]{2,}(\.[a-z0-9]{2,4}){1,2}$/;
+  if (emailRegex.test(email)) {
+    view.setMessage('email-error-message', '');
+  } else {
+    view.setMessage('email-error-message', 'Invalid email address');
+  }
+
+  // validate password
+  if (!password) {
+    view.setMessage('password-error-message', 'Please input password');
+  } else if (password.length < 6) {
+    view.setMessage('password-error-message', 'Password must be greater than 6 characters');
+  } else {
+    view.setMessage('password-error-message', '');
+  }
+};

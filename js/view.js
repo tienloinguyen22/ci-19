@@ -7,35 +7,78 @@ view.setMessage = (elementId, message) => {
   }
 };
 
-view.setActiveScreen = () => {
-  // const app = document.getElementById('app');
-  // if (app) {
-  //   app.innerHTML = components.index;
-  // }
+view.setActiveScreen = (componentName) => {
+  const app = document.getElementById('app');
 
-  // Listen submit event
-  const registerForm = document.getElementById('form-wrapper');
-  if (registerForm) {
-    const handleSubmit = (event) => {
-      event.preventDefault();
+  switch (componentName) {
+    case 'index':
+      if (app) {
+        app.innerHTML = components.index;
+      }
+      break;
+  
+    case 'register':
+      if(app) {
+        app.innerHTML = components.register;
+      }
 
-      // get input values
-      const firstName = registerForm.firstName.value;
-      const lastName = registerForm.lastName.value;
-      const email = registerForm.email.value;
-      const password = registerForm.password.value;
-      const confirmPassword = registerForm.confirmPassword.value;
+      // Listen submit event
+      const registerForm = document.getElementById('form-wrapper');
+      if (registerForm) {
+        const handleRegisterSubmit = (event) => {
+          event.preventDefault();
 
-      const registerInfo = {
-        firstName,
-        lastName,
-        email,
-        password,
-        confirmPassword,
-      };
+          // get input values
+          const firstName = registerForm.firstName.value;
+          const lastName = registerForm.lastName.value;
+          const email = registerForm.email.value;
+          const password = registerForm.password.value;
+          const confirmPassword = registerForm.confirmPassword.value;
 
-      controller.validateRegisterForm(registerInfo);
-    };
-    registerForm.addEventListener('submit', handleSubmit);
+          const registerInfo = {
+            firstName,
+            lastName,
+            email,
+            password,
+            confirmPassword,
+          };
+
+          controller.validateRegisterForm(registerInfo);
+        };
+        registerForm.addEventListener('submit', handleRegisterSubmit);
+      }
+      break;
+    
+    case 'login':
+      if(app) {
+        app.innerHTML = components.login;
+      }
+
+      const createAccountButton = document.getElementById('create-account-button');
+      if (createAccountButton) {
+        handleCreateAccountClick = (_event) => {
+          view.setActiveScreen('register');
+        };
+        createAccountButton.addEventListener('click', handleCreateAccountClick);
+      }
+
+      // Listen submit event
+      const loginForm = document.getElementById('form-wrapper');
+      if (loginForm) {
+        const handleLoginSubmit = (event) => {
+          event.preventDefault();
+
+          const email = loginForm.email.value;
+          const password = loginForm.password.value;
+
+          const loginInfo = {
+            email,
+            password,
+          };
+
+          controller.validateLoginForm(loginInfo);
+        };
+        loginForm.addEventListener('submit', handleLoginSubmit);
+      }
   }
 };

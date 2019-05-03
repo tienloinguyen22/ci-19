@@ -1,0 +1,39 @@
+#login-screen {
+  height: 100vh;
+  background-image: url('../images/background.jpg');
+  background-size: cover;
+  display: flex;
+  justify-content: flex-end;
+}
+
+#login-screen #login-screen-content {
+  background-color: #ffffff;
+  width: 500px;
+}
+
+#login-screen #login-screen-content #logo {
+  margin: 40px;
+}
+
+#login-screen #login-screen-content #logo h1 {
+  text-align: center;
+  font-size: 42px;
+}
+
+#login-screen #login-screen-content #login-form {
+  margin: 32px;
+}
+
+#login-screen #login-screen-content #login-form #form-footer {
+  display: flex;
+  justify-content: space-between;
+  margin: 10px;
+}
+
+#login-screen #login-screen-content #login-form #form-footer #create-account-button {
+  cursor: pointer;
+}
+
+#login-screen #login-screen-content #login-form #form-footer #create-account-button:hover {
+  text-decoration: underline;
+}

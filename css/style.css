@@ -6,3 +6,25 @@
   padding: 0;
   border: 0;
 }
+
+.input {
+  border: 1px solid #cccccc;
+  padding: 10px;
+  border-radius: 8px;
+  width: 100%;
+}
+
+.input-wrapper {
+  margin: 10px;
+}
+
+.error-message {
+  color: #f5222d;
+}
+
+.button {
+  border-radius: 5px;
+  background-color: #4482FF;
+  color: #ffffff;
+  padding: 10px 24px;
+}

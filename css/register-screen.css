@@ -1,0 +1,36 @@
+#register-screen {
+  height: 100vh;
+  background-image: url('../images/background.jpg');
+  background-size: cover;
+  display: flex;
+  justify-content: flex-end;
+}
+
+#register-screen #register-screen-content {
+  background-color: #ffffff;
+  width: 500px;
+}
+
+#register-screen #register-screen-content #logo {
+  margin: 40px;
+}
+
+#register-screen #register-screen-content #logo h1 {
+  text-align: center;
+  font-size: 42px;
+}
+
+#register-screen #register-screen-content #register-form {
+  margin: 32px;
+}
+
+#register-screen #register-screen-content #register-form #name-wrapper {
+  display: flex;
+  justify-content: space-between;
+}
+
+#register-screen #register-screen-content #register-form #form-footer {
+  display: flex;
+  justify-content: space-between;
+  margin: 10px;
+}
