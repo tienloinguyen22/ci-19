@@ -1,7 +1,8 @@
 const components = {
   index: `
     <div>
-      Test 1234567890    
+      <div id='display-name'></div>
+      <div id='email'></div>
     </div>
   `,
   register: `

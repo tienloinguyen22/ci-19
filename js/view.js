@@ -14,6 +14,8 @@ view.setActiveScreen = (componentName) => {
     case 'index':
       if (app) {
         app.innerHTML = components.index;
+        document.getElementById('display-name').innerText = model.logInUser.displayName;
+        document.getElementById('email').innerText = model.logInUser.email;
       }
       break;
   
