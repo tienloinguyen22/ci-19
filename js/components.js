@@ -1,4 +1,37 @@
 const components = {
+  chat: `
+    <div id='chat-screen'>
+      <div id='header'>
+        Techkids Chat
+      </div>
+
+      <div id='chat-container'>
+        <div id='conversation-name'>
+          Techkids Chat
+        </div>
+
+        <div id='message-container'>
+
+        </div>
+
+        <form id='input-message'>
+          <input
+            id='message'
+            type='text'
+            placeholder='Enter your message ...'
+            name='message'
+          />
+          <input type='submit' value='Send' id='submit' />
+        </form>
+      </div>
+    </div>
+  `,
+  message: `
+    <div id='message-content' class='message-content'>
+      <div id='sender' class='sender'></div>
+      <div id='content' class='content'></div>
+    </div>
+  `,
   index: `
     <div>
       <div id='display-name'></div>

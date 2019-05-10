@@ -32,7 +32,7 @@ model.logIn = async (loginInfo) => {
         displayName: loginResult.user.displayName,
         email: loginResult.user.email,
       };
-      view.setActiveScreen('index');
+      view.setActiveScreen('chat');
     } else {
       // email is not verified
       view.setMessage('email-error-message', 'Email is not verified');
