@@ -55,8 +55,8 @@ view.setActiveScreen = (componentName) => {
           
           // validate messageContent (not null)
           if (message) {
-            view.sendMessage('', message);
-            view.sendMessage('Chat bot', message);
+            // save message to db
+            model.saveMessage(message);
 
             // remove old message from input
             messageForm.message.value = '';
@@ -65,6 +65,9 @@ view.setActiveScreen = (componentName) => {
         // addEventListener
         messageForm.addEventListener('submit', handleMessageSubmit);
       }
+
+      // load conversation + display old message
+      model.loadConversations();
       break;
 
     case 'index':
