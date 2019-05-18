@@ -1,28 +1,96 @@
 const components = {
+  createConversation: `
+    <div id='create-conversation-screen'>
+      <div id='header'>
+        Techkids Chat
+      </div>
+
+      <div id='create-form-container'>
+        <h2>Create new conversation</h2>
+
+        <form id='create-conversation-form'>
+          <div class='input-wrapper'>
+            <input
+              class='input'
+              type='text'
+              name='conversationName'
+              placeholder='Conversation name'
+            />
+            <div
+              class='error-message'
+              id='conversation-name-error-message'
+            >
+            </div>
+          </div>
+
+          <div class='input-wrapper'>
+            <input
+              class='input'
+              type='text'
+              name='friendEmail'
+              placeholder="Your friend's email"
+            />
+            <div
+              class='error-message'
+              id='friend-email-error-message'
+            >
+            </div>
+          </div>
+
+          <div id='buttons-group'>
+            <input
+              class='button'
+              type='submit'
+              value='Create conversation'
+            />
+            <button
+              id='cancle-create-conversation'
+              class='secondary-button'
+            >
+              Cancel
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+  `,
   chat: `
     <div id='chat-screen'>
       <div id='header'>
         Techkids Chat
       </div>
 
-      <div id='chat-container'>
-        <div id='conversation-name'>
-          Techkids Chat
+      <div id='chat-parent'>
+        <div id='conversation-list'>
+          <div id='create-conversation'>
+            <button class='button' id='create-conversation-button'>+ Add conversation</button>
+          </div>
+          <div id='conversation-container'>
+            <div class='conversation-item'>Conversasion abc</div>
+            <div class='conversation-item'>Conversasion 123</div>
+            <div class='conversation-item'>Conversasion zxc</div>
+          </div>
         </div>
 
-        <div id='message-container'>
+        <div id='chat-container'>
+          <div id='conversation-name'>
+            Techkids Chat
+          </div>
 
+          <div id='message-container'>
+
+          </div>
+
+          <form id='input-message'>
+            <input
+              id='message'
+              type='text'
+              placeholder='Enter your message ...'
+              name='message'
+            />
+            <input type='submit' value='Send' id='submit' />
+          </form>
         </div>
-
-        <form id='input-message'>
-          <input
-            id='message'
-            type='text'
-            placeholder='Enter your message ...'
-            name='message'
-          />
-          <input type='submit' value='Send' id='submit' />
-        </form>
       </div>
     </div>
   `,

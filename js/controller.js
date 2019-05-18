@@ -72,3 +72,23 @@ controller.validateLoginForm = (loginInfo) => {
     model.logIn(loginInfo);
   }
 };
+
+controller.validateCreateConversation = (conversationInfo) => {
+  const emailRegex = /^[a-z][a-z0-9_\.]{5,32}@[a-z0-9]{2,}(\.[a-z0-9]{2,4}){1,2}$/;
+
+  if (conversationInfo.conversationName) {
+    view.setMessage('conversation-name-error-message', '');
+  } else {
+    view.setMessage('conversation-name-error-message', 'Please input conversation name');
+  }
+
+  if (!conversationInfo.friendEmail) {
+    view.setMessage('friend-email-error-message', 'Please input your friend email');
+  } else if (!emailRegex.test(conversationInfo.friendEmail)) {
+    view.setMessage('friend-email-error-message', 'Invalid email address');
+  } else {
+    view.setMessage('firend-email-error-message', '');
+  }
+
+  // call model to save new conversation to database
+};

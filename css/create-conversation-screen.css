@@ -1,0 +1,31 @@
+#create-conversation-screen {
+  height: 100vh;
+}
+
+#create-conversation-screen #header {
+  background-color: #4482FF;
+  color: #ffffff;
+  text-align: center;
+  font-size: 32px;
+  padding: 10px 0px;
+  height: 64px;
+}
+
+#create-conversation-screen #create-form-container {
+  margin-top: 84px;
+  padding: 0px 15%;
+}
+
+#create-conversation-screen #create-form-container h2 {
+  font-size: 32px;
+  font-weight: 600;
+  margin-left: 10px;
+}
+
+#create-conversation-screen #create-form-container form {
+  margin-top: 64px;
+}
+
+#create-conversation-screen #create-form-container #buttons-group {
+  margin-left: 10px;
+}

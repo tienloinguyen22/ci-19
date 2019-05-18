@@ -68,6 +68,15 @@ view.setActiveScreen = (componentName) => {
 
       // load conversation + display old message
       model.loadConversations();
+
+      // listen click event of create-conversation-button
+      const createConversationButton = document.getElementById('create-conversation-button');
+      const handleCreateClick = (_event) => {
+        view.setActiveScreen('createConversation');
+      };
+      if (createConversationButton) {
+        createConversationButton.addEventListener('click', handleCreateClick);
+      }
       break;
 
     case 'index':
@@ -141,5 +150,41 @@ view.setActiveScreen = (componentName) => {
         };
         loginForm.addEventListener('submit', handleLoginSubmit);
       }
+      break;
+
+    case 'createConversation':
+      if (app) {
+        app.innerHTML = components.createConversation;
+      }
+
+      // listen cancel click
+      const cancelButton = document.getElementById('cancle-create-conversation');
+      const handleCancelClick = (_event) => {
+        view.setActiveScreen('chat');
+        model.clearActiveConversation();
+      };
+      if (cancelButton) {
+        cancelButton.addEventListener('click', handleCancelClick);
+      }
+
+      // listen create-form submit
+      const createConversationForm = document.getElementById('create-conversation-form');
+      const handleCreateConversationFormSubmit = (event) => {
+        event.preventDefault();
+
+        const conversationName = createConversationForm.conversationName.value;
+        const friendEmail = createConversationForm.friendEmail.value;
+
+        const createConversationInfo = {
+          conversationName,
+          friendEmail,
+        };
+
+        controller.validateCreateConversation(createConversationInfo);
+      };
+      if (createConversationForm) {
+        createConversationForm.addEventListener('submit', handleCreateConversationFormSubmit);
+      }
+      break;
   }
 };

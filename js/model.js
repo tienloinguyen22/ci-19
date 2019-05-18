@@ -108,3 +108,7 @@ model.loadConversations = () => {
     .onSnapshot(handleDocumentChange);
   // listen for change
 };
+
+model.clearActiveConversation = () => {
+  model.activeConversation = undefined;
+};

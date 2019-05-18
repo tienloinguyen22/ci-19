@@ -65,3 +65,11 @@
   background-color: #e9e9e9;
   color: #000000;
 }
+
+.secondary-button {
+  border-radius: 5px;
+  background-color: #ffffff;
+  color: #9e9a9a;
+  border: 1px solid #e9e9e9;
+  padding: 10px 24px;
+}
