@@ -66,9 +66,6 @@ const components = {
             <button class='button' id='create-conversation-button'>+ Add conversation</button>
           </div>
           <div id='conversation-container'>
-            <div class='conversation-item'>Conversasion abc</div>
-            <div class='conversation-item'>Conversasion 123</div>
-            <div class='conversation-item'>Conversasion zxc</div>
           </div>
         </div>
 

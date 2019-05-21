@@ -72,3 +72,7 @@
 .conversation-item:hover {
   background-color: #e5e5e5;
 }
+
+.active-conversation {
+  background-color: #e5e5e5;
+}

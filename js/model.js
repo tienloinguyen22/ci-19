@@ -2,6 +2,7 @@ const model = {};
 
 model.logInUser = undefined;
 model.activeConversation = undefined;
+model.conversations = undefined;
 
 model.createAccount = async (registerInfo) => {
   try {
@@ -69,46 +70,103 @@ model.saveMessage = (messageContent) => {
 model.loadConversations = () => {
   const db = firebase.firestore();
 
-  const handleDocumentChange = (doc) => {
-    // render message
+  const handleCollectionChange = (querySnapshot) => {
+    if (!model.conversations) {
+      // render message
+      const conversations = [];
+      querySnapshot.forEach((doc) => {
+        const docInfo = doc.data();
+        docInfo.id = doc.id;
 
-    // check model.activeConversation
-      // undefined => render all messages + assign model.activeCOnversation
-      // !== undefined => render last message
-    const conversationNewData = doc.data();
-    if (model.activeConversation) {
-      // render last message
-      const lastMessage = conversationNewData.messages[conversationNewData.messages.length - 1];
-      
-      const isOwnMessage = lastMessage.user === model.logInUser.email;
-      if (isOwnMessage) {
-        view.sendMessage('', lastMessage.content);
-      } else {
-        view.sendMessage(lastMessage.user, lastMessage.content);
-      }
-    } else {
-      model.activeConversation = conversationNewData;
+        conversations.push(docInfo);
+      });
+      model.conversations = conversations;
 
-      for (let i = 0; i < conversationNewData.messages.length; i += 1) {
-        const message = conversationNewData.messages[i];
-        // check own message
-        const isOwnMessage = message.user === model.logInUser.email;
+      model.activeConversation = model.conversations[0];
 
-        if (isOwnMessage) {
+      // render conversation list
+      model.conversations.forEach((conversation) => {
+        view.renderConversationItem(conversation);
+      });
+
+      // render message
+      model.activeConversation.messages.forEach((message) => {
+        if (message.user === model.logInUser.email) {
           view.sendMessage('', message.content);
         } else {
           view.sendMessage(message.user, message.content);
         }
-      }
+      });
+    } else {
+      const modifiedConversations = [];
+      querySnapshot.forEach((doc) => {
+        const conversation = doc.data();
+        conversation.id = doc.id;
+
+        modifiedConversations.push(conversation);
+      });
+
+      modifiedConversations.forEach((modifiedConversation) => {
+        let isNewConversation = true;
+
+        for (let i = 0; i < model.conversations.length; i += 1) {
+          if (model.conversations[i].id === modifiedConversation.id) {
+            model.conversations[i] = modifiedConversation;
+            isNewConversation = false;
+
+            if (modifiedConversation.id === model.activeConversation.id) {
+              const newMessage = modifiedConversation.messages[modifiedConversation.messages.length - 1];
+
+              if (newMessage.user === model.logInUser.email) {
+                view.sendMessage('', newMessage.content);
+              } else {
+                view.sendMessage(newMessage.user, newMessage.content);
+              }
+            }
+
+            break;
+          }
+        }
+
+        if (isNewConversation) {
+          model.conversations.push(modifiedConversation);
+        }
+      });
     }
   };
 
   // get data + display message
-  db.collection('conversations').doc('PssIk7btqvvxEfjgJfNT')
-    .onSnapshot(handleDocumentChange);
+  db.collection('conversations')
+    .where('users', 'array-contains', model.logInUser.email)
+    .onSnapshot(handleCollectionChange);
   // listen for change
 };
 
 model.clearActiveConversation = () => {
   model.activeConversation = undefined;
+};
+
+model.createNewConversation = (conversationInfo) => {
+  // build newConversation
+  const newConversation = {
+    name: conversationInfo.conversationName,
+    createdAt: new Date(),
+    messages: [],
+    users: [
+      model.logInUser.email,
+      conversationInfo.friendEmail,
+    ],
+  };
+
+  // save to firestore
+  const db = firebase.firestore();
+  db.collection('conversations').add(newConversation);
+
+  // move user back to chat screen
+  model.clearActiveConversation();
+  view.setActiveScreen('chat');
+};
+
+model.updateActiveConversation = (newActiveConversation) => {
+  model.activeConversation = newActiveConversation;
 };

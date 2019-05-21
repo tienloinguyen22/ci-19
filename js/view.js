@@ -188,3 +188,44 @@ view.setActiveScreen = (componentName) => {
       break;
   }
 };
+
+view.renderConversationItem = (conversationInfo) => {
+  const conversationItem = document.createElement('div');
+  conversationItem.innerText = conversationInfo.name;
+  conversationItem.classList.add('conversation-item');
+  conversationItem.id = conversationInfo.id;
+  if (conversationInfo.id === model.activeConversation.id) {
+    conversationItem.classList.add('active-conversation');
+  }
+  changeActiveConversation = (_event) => {
+    // render conversation list
+    const oldConversationItem = document.getElementById(model.activeConversation.id);
+    if (oldConversationItem) {
+      oldConversationItem.classList.remove('active-conversation');
+    }
+    const newConversationItem = document.getElementById(conversationInfo.id);
+    if (newConversationItem) {
+      newConversationItem.classList.add('active-conversation');
+    }
+
+    // update model.activeConversation
+    model.updateActiveConversation(conversationInfo);
+
+    // clear + re-render messages
+    const messageContainer = document.getElementById(`message-container`);
+    messageContainer.innerText = '';
+    model.activeConversation.messages.forEach((message) => {
+      if (message.user === model.logInUser.email) {
+        view.sendMessage('', message.content);
+      } else {
+        view.sendMessage(message.user, message.content);
+      }
+    });
+  };
+  conversationItem.addEventListener('click', changeActiveConversation);
+
+  const conversationContainer = document.getElementById('conversation-container');
+  if (conversationContainer) {
+    conversationContainer.appendChild(conversationItem);
+  }
+};

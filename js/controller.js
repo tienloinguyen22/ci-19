@@ -91,4 +91,7 @@ controller.validateCreateConversation = (conversationInfo) => {
   }
 
   // call model to save new conversation to database
+  if (conversationInfo.conversationName && conversationInfo.friendEmail) {
+    model.createNewConversation(conversationInfo);
+  }
 };
